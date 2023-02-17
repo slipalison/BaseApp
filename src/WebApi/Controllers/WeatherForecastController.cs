@@ -1,3 +1,4 @@
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
