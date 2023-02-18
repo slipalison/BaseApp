@@ -1,6 +1,18 @@
 version: '3.4'
 
 services:
+  # webapi:
+  #   image: ${DOCKER_REGISTRY-}webapi
+  #   build:
+  #     context: .
+  #     dockerfile: src/WebApi/Dockerfile
+  #   depends_on:
+  #    - elasticsearch
+  #    - sqlserver
+  #    - rabbit
+  #    - redis
+  #    - mongo
+
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
