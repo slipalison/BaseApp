@@ -35,7 +35,7 @@ public class AccountPlanService : IAccountPlanService
             AccountName = x.AccountName,
             NextSequencie = AccountPlanEntity.GetNextSequence(codes, x.Code)
         }).ToList();
-
+        result.Sort((p1, p2) => OrganizeAccountPlanByCode.Compare(p1.Code, p2.Code));
         return result;
     }
 
@@ -52,7 +52,7 @@ public class AccountPlanService : IAccountPlanService
             AccountType = createAccountPlanCommand.AccountType,
             AcceptLaunches = createAccountPlanCommand.AcceptLaunches
         };
-        if (!exists)
+        if (exists)
         {
             var list = await GetAll();
             var next = AccountPlanEntity.GetNextSequence(list.Select(x => x.Code).ToList(),

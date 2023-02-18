@@ -37,10 +37,8 @@ public class LoggingMiddleware
         context.Response.Body = responseBody;
         await _next(context);
         context.Response.Body.Seek(0, SeekOrigin.Begin);
-        var text = await new StreamReader(context.Response.Body).ReadToEndAsync();
-        context.Response.Body.Seek(0, SeekOrigin.Begin);
         _logger.LogInformation(
-            $"Http Response Information: {Environment.NewLine} Schema:{context.Request.Scheme} Host: {context.Request.Host} Path: {context.Request.Path} QueryString: {context.Request.QueryString} Response Body: {text}");
+            $"Http Response Information: {Environment.NewLine} Schema:{context.Request.Scheme} Host: {context.Request.Host} Path: {context.Request.Path} QueryString: {context.Request.QueryString}");
         await responseBody.CopyToAsync(originalBodyStream);
     }
 
@@ -49,29 +47,10 @@ public class LoggingMiddleware
         context.Request.EnableBuffering();
         await using var requestStream = _recyclableMemoryStreamManager.GetStream();
         await context.Request.Body.CopyToAsync(requestStream);
-        var body = ReadStreamInChunks(requestStream);
         var log =
-            $"Http Request Information: {Environment.NewLine} Schema:{context.Request.Scheme} Host: {context.Request.Host} Path: {context.Request.Path} QueryString: {context.Request.QueryString} Request Body: {body}";
+            $"Http Request Information: {Environment.NewLine} Schema:{context.Request.Scheme} Host: {context.Request.Host} Path: {context.Request.Path} QueryString: {context.Request.QueryString}";
         _logger.LogInformation(log);
         context.Request.Body.Position = 0;
     }
-
-    private static string ReadStreamInChunks(Stream stream)
-    {
-        const int readChunkBufferLength = 4096;
-        stream.Seek(0, SeekOrigin.Begin);
-        using var textWriter = new StringWriter();
-        using var reader = new StreamReader(stream);
-        var readChunk = new char[readChunkBufferLength];
-        int readChunkLength;
-        do
-        {
-            readChunkLength = reader.ReadBlock(readChunk,
-                0,
-                readChunkBufferLength);
-            textWriter.Write(readChunk, 0, readChunkLength);
-        } while (readChunkLength > 0);
-
-        return textWriter.ToString();
-    }
+    
 }

@@ -53,6 +53,7 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
             .ReceiveResult<AccountPlanCreatedResponse>();
 
         Assert.True(result.IsSuccess);
+        Assert.Contains(objetoAleatorio.NextSequencie!,result.Value.Message);
     }
 
 
