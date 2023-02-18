@@ -2,8 +2,8 @@
 
 public class PlanoDeConta
 {
-    public string Code { get; set; }
-    public string AccountName { get; set; }
+    public string Code { get; set; } = null!;
+    public string AccountName { get; set; } = null!;
     public AccountType AccountType { get; set; }
     public bool AceitaLancamentos { get; set; }
 
