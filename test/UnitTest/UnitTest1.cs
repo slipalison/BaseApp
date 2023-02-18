@@ -1,4 +1,4 @@
-using Domain;
+using Domain.AccountPlan;
 using Xunit.Abstractions;
 
 namespace UnitTest;
@@ -19,11 +19,11 @@ public class UnitTest1
     [Fact]
     public void Test1()
     {
-        var list = _list.Where(x => x.Codigo.Split(".").Length <= 2).ToList();
+        var list = _list.Where(x => x.Code.Split(".").Length <= 2).ToList();
         foreach (var plans in list)
         {
-            var t = PlanoDeConta.GetNextSequence(_list.Select(x => x.Codigo).ToList(), plans.Codigo);
-            var result = $"Pai: {plans.Codigo} Filho {t}";
+            var t = PlanoDeConta.GetNextSequence(_list.Select(x => x.Code).ToList(), plans.Code);
+            var result = $"Pai: {plans.Code} Filho {t}";
             _testOutputHelper.WriteLine(result);
             Assert.Contains(result, _listReturns);
             _listReturns.Remove(result);
@@ -33,13 +33,13 @@ public class UnitTest1
     }
 
     public static IEnumerable<object[]> ListsCategories() => new PlanoDeConta().Return()
-        .Where(x => x.Codigo.Split(".").Length <= 2).Select(x => new object[] { x.Codigo });
+        .Where(x => x.Code.Split(".").Length <= 2).Select(x => new object[] { x.Code });
 
     [Theory]
     [MemberData(nameof(ListsCategories))]
     public void VerifyCondisions(string codigo)
     {
-        var t = PlanoDeConta.GetNextSequence(_list.Select(x => x.Codigo).ToList(), codigo);
+        var t = PlanoDeConta.GetNextSequence(_list.Select(x => x.Code).ToList(), codigo);
         _testOutputHelper.WriteLine($"Pai: {codigo} Filho {t}");
         var result = $"Pai: {codigo} Filho {t}";
         Assert.Contains(result, _listReturns);
@@ -72,317 +72,317 @@ public static class PlanoEx
         {
             new()
             {
-                Codigo = "1", NomeDaConta = "Receitas", Tipo = TipoDeConta.Receita, AceitaLancamentos = false
+                Code = "1", AccountName = "Receitas", AccountType = AccountType.Receita, AceitaLancamentos = false
             },
 
             new()
             {
-                Codigo = "5", NomeDaConta = "Rendimento de investimentos", Tipo = TipoDeConta.Receita,
+                Code = "5", AccountName = "Rendimento de investimentos", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "5.999", NomeDaConta = "Rendimento de investimentos", Tipo = TipoDeConta.Receita,
+                Code = "5.999", AccountName = "Rendimento de investimentos", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "999", NomeDaConta = "Receitas", Tipo = TipoDeConta.Receita, AceitaLancamentos = false
+                Code = "999", AccountName = "Receitas", AccountType = AccountType.Receita, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "999.999", NomeDaConta = "Receitas", Tipo = TipoDeConta.Receita, AceitaLancamentos = false
+                Code = "999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "999.999.999", NomeDaConta = "Receitas", Tipo = TipoDeConta.Receita, AceitaLancamentos = false
+                Code = "999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "1.1", NomeDaConta = "Taxa condominial", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.1", AccountName = "Taxa condominial", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.2.999", NomeDaConta = "Taxa condominial", Tipo = TipoDeConta.Receita,
+                Code = "1.2.999", AccountName = "Taxa condominial", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.999.999", NomeDaConta = "Taxa condominial", Tipo = TipoDeConta.Receita,
+                Code = "1.999.999", AccountName = "Taxa condominial", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.2", NomeDaConta = "Reserva de dependência", Tipo = TipoDeConta.Receita,
+                Code = "1.2", AccountName = "Reserva de dependência", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.3", NomeDaConta = "Multas", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.3", AccountName = "Multas", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.4", NomeDaConta = "Juros", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.4", AccountName = "Juros", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.5", NomeDaConta = "Multa condominial", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.5", AccountName = "Multa condominial", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.6", NomeDaConta = "Água", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.6", AccountName = "Água", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.7", NomeDaConta = "Gás", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.7", AccountName = "Gás", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.8", NomeDaConta = "Luz e energia", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.8", AccountName = "Luz e energia", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.9", NomeDaConta = "Fundo de reserva", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.9", AccountName = "Fundo de reserva", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.10", NomeDaConta = "Fundo de obras", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.10", AccountName = "Fundo de obras", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.11", NomeDaConta = "Correção monetária", Tipo = TipoDeConta.Receita,
+                Code = "1.11", AccountName = "Correção monetária", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.12", NomeDaConta = "Transferência entre contas", Tipo = TipoDeConta.Receita,
+                Code = "1.12", AccountName = "Transferência entre contas", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.13", NomeDaConta = "Pagamento duplicado", Tipo = TipoDeConta.Receita,
+                Code = "1.13", AccountName = "Pagamento duplicado", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.14", NomeDaConta = "Cobrança", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.14", AccountName = "Cobrança", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.15", NomeDaConta = "Crédito", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.15", AccountName = "Crédito", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.16", NomeDaConta = "Água mineral", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.16", AccountName = "Água mineral", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.17", NomeDaConta = "Estorno taxa de resgate", Tipo = TipoDeConta.Receita,
+                Code = "1.17", AccountName = "Estorno taxa de resgate", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.18", NomeDaConta = "Acordo", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.18", AccountName = "Acordo", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "1.19", NomeDaConta = "Honorários", Tipo = TipoDeConta.Receita, AceitaLancamentos = true
+                Code = "1.19", AccountName = "Honorários", AccountType = AccountType.Receita, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2", NomeDaConta = "Despesas", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "2", AccountName = "Despesas", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "2.1", NomeDaConta = "Com pessoal", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "2.1", AccountName = "Com pessoal", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "2.1.1", NomeDaConta = "Salário", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.1", AccountName = "Salário", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.2", NomeDaConta = "Adiantamento salarial", Tipo = TipoDeConta.Despesa,
+                Code = "2.1.2", AccountName = "Adiantamento salarial", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.3", NomeDaConta = "Hora extra", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.3", AccountName = "Hora extra", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.4", NomeDaConta = "Férias", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.4", AccountName = "Férias", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.5", NomeDaConta = "13º salário", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.5", AccountName = "13º salário", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.6", NomeDaConta = "Adiantamento 13º salário", Tipo = TipoDeConta.Despesa,
+                Code = "2.1.6", AccountName = "Adiantamento 13º salário", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.7", NomeDaConta = "Adicional de função", Tipo = TipoDeConta.Despesa,
+                Code = "2.1.7", AccountName = "Adicional de função", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.8", NomeDaConta = "Aviso prévio", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.8", AccountName = "Aviso prévio", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.9", NomeDaConta = "INSS", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.9", AccountName = "INSS", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.10", NomeDaConta = "FGTS", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.10", AccountName = "FGTS", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.11", NomeDaConta = "PIS", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.11", AccountName = "PIS", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.12", NomeDaConta = "Vale refeição", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.12", AccountName = "Vale refeição", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.13", NomeDaConta = "Vale transporte", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.13", AccountName = "Vale transporte", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.14", NomeDaConta = "Cesta básica", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.1.14", AccountName = "Cesta básica", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.1.15", NomeDaConta = "Acordo trabalhista", Tipo = TipoDeConta.Despesa,
+                Code = "2.1.15", AccountName = "Acordo trabalhista", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2", NomeDaConta = "Mensais", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "2.2", AccountName = "Mensais", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "2.2.999", NomeDaConta = "Energia elétrica", Tipo = TipoDeConta.Despesa,
+                Code = "2.2.999", AccountName = "Energia elétrica", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.2", NomeDaConta = "Água e esgoto", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.2.2", AccountName = "Água e esgoto", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.3", NomeDaConta = "Taxa de administração", Tipo = TipoDeConta.Despesa,
+                Code = "2.2.3", AccountName = "Taxa de administração", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.4", NomeDaConta = "Gás", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.2.4", AccountName = "Gás", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.5", NomeDaConta = "Seguro obrigatório", Tipo = TipoDeConta.Despesa,
+                Code = "2.2.5", AccountName = "Seguro obrigatório", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.6", NomeDaConta = "Telefone", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.2.6", AccountName = "Telefone", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.2.7", NomeDaConta = "Softwares e aplicativos", Tipo = TipoDeConta.Despesa,
+                Code = "2.2.7", AccountName = "Softwares e aplicativos", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.3", NomeDaConta = "Manutenção", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "2.3", AccountName = "Manutenção", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "2.3.1", NomeDaConta = "Elevador", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.3.1", AccountName = "Elevador", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.3.2", NomeDaConta = "Limpeza e conservação", Tipo = TipoDeConta.Despesa,
+                Code = "2.3.2", AccountName = "Limpeza e conservação", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.3.3", NomeDaConta = "Jardinagem", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.3.3", AccountName = "Jardinagem", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4", NomeDaConta = "Diversas", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "2.4", AccountName = "Diversas", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "2.4.1", NomeDaConta = "Honorários de advogado", Tipo = TipoDeConta.Despesa,
+                Code = "2.4.1", AccountName = "Honorários de advogado", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.2", NomeDaConta = "Xerox", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.4.2", AccountName = "Xerox", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.3", NomeDaConta = "Correios", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.4.3", AccountName = "Correios", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.4", NomeDaConta = "Despesas judiciais", Tipo = TipoDeConta.Despesa,
+                Code = "2.4.4", AccountName = "Despesas judiciais", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.5", NomeDaConta = "Multas", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.4.5", AccountName = "Multas", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.6", NomeDaConta = "Juros", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "2.4.6", AccountName = "Juros", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "2.4.7", NomeDaConta = "Transferência entre contas", Tipo = TipoDeConta.Despesa,
+                Code = "2.4.7", AccountName = "Transferência entre contas", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "3", NomeDaConta = "Despesas bancárias", Tipo = TipoDeConta.Despesa, AceitaLancamentos = false
+                Code = "3", AccountName = "Despesas bancárias", AccountType = AccountType.Despesa, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "3.1", NomeDaConta = "Registro de boletos", Tipo = TipoDeConta.Despesa,
+                Code = "3.1", AccountName = "Registro de boletos", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "3.2", NomeDaConta = "Processamento de boletos", Tipo = TipoDeConta.Despesa,
+                Code = "3.2", AccountName = "Processamento de boletos", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "3.3", NomeDaConta = "Registro e processamento de boletos", Tipo = TipoDeConta.Despesa,
+                Code = "3.3", AccountName = "Registro e processamento de boletos", AccountType = AccountType.Despesa,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "3.4", NomeDaConta = "Resgates", Tipo = TipoDeConta.Despesa, AceitaLancamentos = true
+                Code = "3.4", AccountName = "Resgates", AccountType = AccountType.Despesa, AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "4", NomeDaConta = "Outras receitas", Tipo = TipoDeConta.Receita, AceitaLancamentos = false
+                Code = "4", AccountName = "Outras receitas", AccountType = AccountType.Receita, AceitaLancamentos = false
             },
             new()
             {
-                Codigo = "4.1", NomeDaConta = "Rendimento de poupança", Tipo = TipoDeConta.Receita,
+                Code = "4.1", AccountName = "Rendimento de poupança", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             },
             new()
             {
-                Codigo = "4.2", NomeDaConta = "Rendimento de investimentos", Tipo = TipoDeConta.Receita,
+                Code = "4.2", AccountName = "Rendimento de investimentos", AccountType = AccountType.Receita,
                 AceitaLancamentos = true
             }
         };

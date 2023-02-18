@@ -1,4 +1,4 @@
-﻿namespace Domain;
+﻿namespace Domain.AccountPlan;
 
 public class StringNumericOrganizeAccountPlan : IComparer<string>
 {

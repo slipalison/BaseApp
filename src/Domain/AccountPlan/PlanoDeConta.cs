@@ -1,10 +1,10 @@
-﻿namespace Domain;
+﻿namespace Domain.AccountPlan;
 
 public class PlanoDeConta
 {
-    public string Codigo { get; set; }
-    public string NomeDaConta { get; set; }
-    public TipoDeConta Tipo { get; set; }
+    public string Code { get; set; }
+    public string AccountName { get; set; }
+    public AccountType AccountType { get; set; }
     public bool AceitaLancamentos { get; set; }
 
     public static string GetNextSequence(List<string> fullList, string codigo)

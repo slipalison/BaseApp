@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.AccountPlan;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -12,7 +12,6 @@ public class ChartOfAccountsController : ControllerBase
     public ChartOfAccountsController()
     {
         var t = new PlanoDeConta();
-        //_list = t.Return();
     }
 
     [HttpGet]
@@ -33,6 +32,6 @@ public class ChartOfAccountsController : ControllerBase
     public IActionResult GetHighCategory()
     {
 
-        return Ok(_list.Where(x => x.Codigo.Split(".").Length <= 2).Select(x => new { x.Codigo, x.NomeDaConta }));
+        return Ok(_list.Where(x => x.Code.Split(".").Length <= 2).Select(x => new { Code = x.Code, AccountName = x.AccountName }));
     }
 }
