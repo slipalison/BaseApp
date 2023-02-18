@@ -7,3 +7,8 @@ public class AccountPlanResponse
     public string? NextSequencie { get; set; }
 }
 
+public class AccountPlanCreatedResponse
+{
+    public string Message { get; set; }
+}
+

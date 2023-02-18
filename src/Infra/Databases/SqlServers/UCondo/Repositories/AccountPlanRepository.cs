@@ -17,4 +17,17 @@ public class AccountPlanRepository : IAccountPlanRepository
     {
         return _context.AccountPlanEntities.ToListAsync();
     }
+
+    public async Task<AccountPlanEntity> Create(AccountPlanEntity accountPlanEntity)
+    {
+        var ent = await _context.AddAsync(accountPlanEntity);
+        await _context.SaveChangesAsync();
+
+        return ent.Entity;
+    }
+
+    public Task<bool> ExistsCode(string sequenceCode)
+    {
+        return _context.AccountPlanEntities.AnyAsync(x => x.Code == sequenceCode);
+    }
 }

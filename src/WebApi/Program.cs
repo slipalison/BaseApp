@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Serilog;
-using Serilog.Sinks.Elasticsearch;
 
 namespace WebApi;
 

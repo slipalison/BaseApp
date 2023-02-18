@@ -1,4 +1,5 @@
 ﻿using Domain.AccountPlan;
+using Domain.Commands;
 using Domain.Contracts.Services;
 using Domain.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +26,14 @@ public class ChartOfAccountsController : ControllerBase
 
 
     [HttpPost]
-    public IActionResult Post([FromBody] AccountPlanEntity accountPlanEntity)
+    public async Task<ActionResult<IEnumerable<AccountPlanCreatedResponse>>> Post(
+        [FromBody] CreateAccountPlanCommand createAccountPlanCommand)
     {
-        return Ok();
+        var list = await _accountPlanService.Create(createAccountPlanCommand);
+        if (list.IsSuccess)
+            return Ok(list.Value);
+
+        return BadRequest(list.Error);
     }
 
     [HttpGet("Categories")]

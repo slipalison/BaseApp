@@ -1,7 +1,9 @@
 ﻿using Domain.AccountPlan;
+using Domain.Commands;
 using Domain.Contracts.Repositories;
 using Domain.Contracts.Services;
 using Domain.Queries;
+using Responses;
 
 namespace Domain.Services;
 
@@ -35,5 +37,35 @@ public class AccountPlanService : IAccountPlanService
         }).ToList();
 
         return result;
+    }
+
+    public async Task<Result<AccountPlanCreatedResponse>> Create(CreateAccountPlanCommand createAccountPlanCommand)
+    {
+        if (!createAccountPlanCommand.SequenceCode.StartsWith(createAccountPlanCommand.ParentCode))
+            return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo informado não pertence a conta pai");
+
+        var exists = await _accountPlanRepository.ExistsCode(createAccountPlanCommand.SequenceCode);
+        var newEntity = new AccountPlanEntity
+        {
+            Code = createAccountPlanCommand.SequenceCode,
+            AccountName = createAccountPlanCommand.AccountName,
+            AccountType = createAccountPlanCommand.AccountType,
+            AcceptLaunches = createAccountPlanCommand.AcceptLaunches
+        };
+        if (!exists)
+        {
+            var list = await GetAll();
+            var next = AccountPlanEntity.GetNextSequence(list.Select(x => x.Code).ToList(),
+                createAccountPlanCommand.ParentCode);
+            newEntity.Code = next;
+        }
+
+        var t = await _accountPlanRepository.Create(newEntity);
+        return Result.Ok(new AccountPlanCreatedResponse
+        {
+            Message = t.Code == createAccountPlanCommand.SequenceCode
+                ? $"O codigo criado foi {t.Code}"
+                : $"O codigo criado foi {t.Code}, o codígo {createAccountPlanCommand.SequenceCode} já esta em uso"
+        });
     }
 }
