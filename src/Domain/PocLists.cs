@@ -17,19 +17,10 @@ public class PlanoDeConta
         if ((children.Any() && children.First() == codigo && children.Count <= 1 ) )
             return $"{codigo}.1";
         
-        var lastChild = children.Last();
         var lastChildSplit = children.Last().Split('.');
         var last = int.Parse(lastChildSplit.Last());
 
         if (MaxValueLastChild(fullList, last, lastChildSplit, out var s)) return s;
-
-        if (lastChild == $"{codigo}.999")
-        {
-            var split = codigo.Split(".");
-            return GetNextSequence(fullList, split.First());
-        }
-
-        if (lastChildSplit.Length == 2 && codigo.Split('.').Length == 2) return $"{codigo}.{1}";
 
         if (codigo.Length != 1 || lastChildSplit.Length != 3) return $"{codigo}.{last + 1}";
         var childrens = children.Where(x => x.Replace(".", "").Length == codigo.Length + 1);
