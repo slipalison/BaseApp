@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands" />
+    <Folder Include="Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Responses" Version="1.1.2" />
+  </ItemGroup>
+
 </Project>
