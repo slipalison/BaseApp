@@ -15,7 +15,7 @@ public class PlanoDeConta
 
         if (children.Count == 0) return $"{codigo}";
 
-        if ((children.Any() && children.First() == codigo && children.Count <= 1))
+        if (children.Any() && children.First() == codigo && children.Count <= 1)
             return $"{codigo}.1";
 
         var lastChildSplit = children.Last().Split('.');
