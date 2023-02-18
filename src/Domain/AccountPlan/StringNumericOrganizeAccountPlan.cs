@@ -2,10 +2,10 @@
 
 public class StringNumericOrganizeAccountPlan : IComparer<string>
 {
-    public int Compare(string x, string y)
+    public int Compare(string? x, string? y)
     {
-        var xSegments = x.Split('.').Select(int.Parse).ToList();
-        var ySegments = y.Split('.').Select(int.Parse).ToList();
+        var xSegments = x!.Split('.').Select(int.Parse).ToList();
+        var ySegments = y!.Split('.').Select(int.Parse).ToList();
 
         var i = 0;
         while (i < xSegments.Count && i < ySegments.Count)
