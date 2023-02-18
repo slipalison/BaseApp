@@ -1,6 +1,5 @@
 using Domain.AccountPlan;
 using UnitTest.Mocks;
-using WebApi;
 using Xunit.Abstractions;
 
 namespace UnitTest.Unities;

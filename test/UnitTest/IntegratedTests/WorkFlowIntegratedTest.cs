@@ -1,8 +1,9 @@
 ﻿using Domain.AccountPlan;
+using Domain.Queries;
 using Flurl.Http;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Responses.Http;
-using Program = WebApi.Program;
+using WebApi;
+
 
 namespace UnitTest.IntegratedTests;
 
@@ -15,7 +16,16 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
     [Fact]
     public async Task GetAll()
     {
-        var t = await "/ChartOfAccounts".WithClient(Client).AllowAnyHttpStatus().GetAsync().ReceiveResult<List<AccountPlanEntity>>();
+        var t = await CallHttp("/ChartOfAccounts").GetAsync().ReceiveResult<List<AccountPlanEntity>>();
+
+        Assert.True(t.IsSuccess);
+        Assert.NotEmpty(t.Value);
+    }
+    
+    [Fact]
+    public async Task GetHighCategory()
+    {
+        var t = await CallHttp("/ChartOfAccounts/Categories").GetAsync().ReceiveResult<List<AccountPlanResponse>>();
 
         Assert.True(t.IsSuccess);
         Assert.NotEmpty(t.Value);

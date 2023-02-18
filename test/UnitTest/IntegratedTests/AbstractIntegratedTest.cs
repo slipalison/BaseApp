@@ -1,6 +1,5 @@
 ﻿using Flurl.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Program = WebApi.Program;
 
 namespace UnitTest.IntegratedTests;
@@ -22,4 +21,6 @@ public abstract class AbstractIntegratedTest :  IClassFixture<CustomWebApplicati
         Client = new FlurlClient(client);
 
     }
+
+    protected IFlurlRequest CallHttp(string uri) => uri.WithClient(Client).AllowAnyHttpStatus();
 }

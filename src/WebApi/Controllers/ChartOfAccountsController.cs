@@ -17,7 +17,7 @@ public class ChartOfAccountsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AccountPlanEntity>>> Index()
+    public async Task<ActionResult<IEnumerable<AccountPlanEntity>>> GetAll()
     {
         var list = await _accountPlanService.GetAll();
         return Ok(list);

@@ -1,6 +1,4 @@
-﻿using Domain.AccountPlan;
-using Infra.Databases.SqlServers.UCondo.Configurations;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Infra.Databases.SqlServers.UCondo;

@@ -17,7 +17,7 @@ public static class PlanoEx
             "Pai: 2 Filho 2.5", "Pai: 2.1 Filho 2.1.16", "Pai: 2.2 Filho 2.5", "Pai: 2.3 Filho 2.3.4",
             "Pai: 2.4 Filho 2.4.8", "Pai: 3 Filho 3.5", "Pai: 3.1 Filho 3.1.1", "Pai: 3.2 Filho 3.2.1",
             "Pai: 3.3 Filho 3.3.1", "Pai: 3.4 Filho 3.4.1", "Pai: 4 Filho 4.3", "Pai: 4.1 Filho 4.1.1",
-            "Pai: 4.2 Filho 4.2.1", "Pai: 999.999 Filho 1000"
+            "Pai: 4.2 Filho 4.2.1", "Pai: 999.999 Filho 1000", "Pai: 9 Filho 9.11", "Pai: 9.10 Filho 9.10.1"
         };
     }
 
@@ -28,6 +28,18 @@ public static class PlanoEx
             new()
             {
                 Code = "1", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+            },   
+            new()
+            {
+                Code = "9.9.999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "9.10", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "9", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
             },
 
             new()

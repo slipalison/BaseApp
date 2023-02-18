@@ -22,12 +22,12 @@ public class Program
                     .Enrich.WithMachineName()
                     .WriteTo.Debug()
                     .WriteTo.Console()
-                    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
-                    {
-                        AutoRegisterTemplate = true,
-                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
-                        IndexFormat = "baseapi-{0:yyyy.MM}"
-                    })
+                    // .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                    // {
+                    //     AutoRegisterTemplate = true,
+                    //     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
+                    //     IndexFormat = "baseapi-{0:yyyy.MM}"
+                    // })
                     .Enrich.WithProperty("Environment", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!)
                     .ReadFrom.Configuration(context.Configuration);
             });
