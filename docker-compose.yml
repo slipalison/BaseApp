@@ -1,17 +1,23 @@
 version: '3.4'
 
 services:
-  # webapi:
-  #   image: ${DOCKER_REGISTRY-}webapi
-  #   build:
-  #     context: .
-  #     dockerfile: src/WebApi/Dockerfile
-  #   depends_on:
-  #    - elasticsearch
-  #    - sqlserver
-  #    - rabbit
-  #    - redis
-  #    - mongo
+  webapi:
+    #image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: src/WebApi/Dockerfile
+    ports:
+      - "8080:80"
+      - "8085:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlServer=Server=sqlserver,1433;Database=uCondo;User Id=sa;Password=SqlServer2019!;Encrypt=False;
+    depends_on:
+     - sqlserver
+    #  - elasticsearch
+    #  - rabbit
+    #  - redis
+    #  - mongo
 
 
   sqlserver:
@@ -22,6 +28,7 @@ services:
       MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
+ 
   
 
   # rabbit:

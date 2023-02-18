@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Infra.ConfigsExtensions;
 using Infra.Databases.SqlServers.UCondo.Extensions;
+using Infra.Middlewares;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
@@ -26,7 +27,7 @@ public class Startup
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
-                
+
         services.AddResponseCompression(options =>
         {
             options.Providers.Add<GzipCompressionProvider>();
@@ -49,14 +50,12 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-
+        app.UseMiddleware<LoggingMiddleware>();
         if (env.IsDevelopment())
-        {
             app.ExecuteMigartions();
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
 
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseHttpsRedirection().UseRouting()
             .UseResponseCompression()
             .UseEndpoints(builder => { builder.MapControllers(); })

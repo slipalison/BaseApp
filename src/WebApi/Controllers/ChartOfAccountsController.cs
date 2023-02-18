@@ -11,9 +11,11 @@ namespace WebApi.Controllers;
 public class ChartOfAccountsController : ControllerBase
 {
     private readonly IAccountPlanService _accountPlanService;
+    private readonly ILogger<ChartOfAccountsController> _logger;
 
-    public ChartOfAccountsController(IAccountPlanService accountPlanService)
+    public ChartOfAccountsController(IAccountPlanService accountPlanService, ILogger<ChartOfAccountsController> logger)
     {
+        _logger = logger;
         _accountPlanService = accountPlanService;
     }
 
@@ -30,10 +32,14 @@ public class ChartOfAccountsController : ControllerBase
         [FromBody] CreateAccountPlanCommand createAccountPlanCommand)
     {
         var list = await _accountPlanService.Create(createAccountPlanCommand);
-        if (list.IsSuccess)
-            return Ok(list.Value);
+        if (!list.IsSuccess)
+        {
+            _logger.LogWarning("Erro ao criar a conta {@Error}", list.Error);
+            return BadRequest(list.Error);
+        }
 
-        return BadRequest(list.Error);
+        _logger.LogInformation("Conta criada com sucesso: {Message}", list.Value.Message);
+        return Ok(list.Value);
     }
 
     [HttpGet("Categories")]
