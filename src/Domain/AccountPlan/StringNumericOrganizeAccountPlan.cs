@@ -16,7 +16,8 @@ public class StringNumericOrganizeAccountPlan : IComparer<string>
         }
 
         if (i < xSegments.Count) return 1;
-        if (i < ySegments.Count) return -1;
-        return 0;
+        // if (i < ySegments.Count) return -1;
+        return -1;
+        // default return 0;
     }
 }

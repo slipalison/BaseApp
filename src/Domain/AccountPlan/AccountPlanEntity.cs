@@ -1,11 +1,12 @@
 ﻿namespace Domain.AccountPlan;
 
-public class PlanoDeConta
+public class AccountPlanEntity
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Code { get; set; } = null!;
     public string AccountName { get; set; } = null!;
     public AccountType AccountType { get; set; }
-    public bool AceitaLancamentos { get; set; }
+    public bool AcceptLaunches { get; set; }
 
     public static string GetNextSequence(List<string> fullList, string codigo)
     {

@@ -1,12 +1,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Infra.ConfigsExtensions;
+using Infra.Databases.SqlServers.UCondo.Extensions;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
 
+builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(new LoggerConfiguration()
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
@@ -30,24 +32,27 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Base API", Version = "v1" });
+builder.Services.AddEndpointsApiExplorer()
+    .AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Base API", Version = "v1" });
 
-        c.UseInlineDefinitionsForEnums();
-    }
-);
+            c.UseInlineDefinitionsForEnums();
+        }
+    );
+
+builder.Services.HealthChecksConfiguration(builder.Configuration).AddUCondoContext(builder.Configuration);
+
 
 var app = builder.Build();
-
-
 if (app.Environment.IsDevelopment())
 {
+    app.ExecuteMigartions();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.HealthCheckConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

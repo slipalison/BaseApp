@@ -7,11 +7,11 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class ChartOfAccountsController : ControllerBase
 {
-    private readonly List<PlanoDeConta> _list;
+    private readonly List<AccountPlanEntity> _list;
 
     public ChartOfAccountsController()
     {
-        var t = new PlanoDeConta();
+        var t = new AccountPlanEntity();
     }
 
     [HttpGet]
@@ -22,9 +22,9 @@ public class ChartOfAccountsController : ControllerBase
 
 
     [HttpPost]
-    public IActionResult Post([FromBody] PlanoDeConta planoDeConta)
+    public IActionResult Post([FromBody] AccountPlanEntity accountPlanEntity)
     {
-        _list.Add(planoDeConta);
+        _list.Add(accountPlanEntity);
         return Ok(_list);
     }
 
