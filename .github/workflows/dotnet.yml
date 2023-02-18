@@ -24,5 +24,19 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Run unit tests coverage
+      run: dotnet test  /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:ThresholdType=line /p:CoverletOutput=./lcov test/UnitTest/UnitTest.csproj --no-build --verbosity normal
+   
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.6
+      with:
+        # User defined upload name. Visible in Codecov UI
+        #name: # optional
+        # Repository upload token - get it from codecov.io. Required only for private repositories
+        token: ${{ secrets.CODECOV_TOKEN }}
+        # Path to coverage file to upload
+        file: test/UnitTest/lcov.info
+        # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
+        #flags: # optional
+        # Specify whether or not CI build should fail if Codecov runs into an error during upload
+        #fail_ci_if_error: # optional
