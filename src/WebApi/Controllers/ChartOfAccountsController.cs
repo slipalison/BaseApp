@@ -1,4 +1,6 @@
 ﻿using Domain.AccountPlan;
+using Domain.Contracts.Services;
+using Domain.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -7,31 +9,31 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class ChartOfAccountsController : ControllerBase
 {
-    private readonly List<AccountPlanEntity> _list;
+    private readonly IAccountPlanService _accountPlanService;
 
-    public ChartOfAccountsController()
+    public ChartOfAccountsController(IAccountPlanService accountPlanService)
     {
-        var t = new AccountPlanEntity();
+        _accountPlanService = accountPlanService;
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<ActionResult<IEnumerable<AccountPlanEntity>>> Index()
     {
-        return Ok(_list);
+        var list = await _accountPlanService.GetAll();
+        return Ok(list);
     }
 
 
     [HttpPost]
     public IActionResult Post([FromBody] AccountPlanEntity accountPlanEntity)
     {
-        _list.Add(accountPlanEntity);
-        return Ok(_list);
+        return Ok();
     }
 
     [HttpGet("Categories")]
-    public IActionResult GetHighCategory()
+    public async Task<ActionResult<IEnumerable<AccountPlanResponse>>> GetHighCategory()
     {
-
-        return Ok(_list.Where(x => x.Code.Split(".").Length <= 2).Select(x => new { Code = x.Code, AccountName = x.AccountName }));
+        var list = await _accountPlanService.GetCategoryAndSub();
+        return Ok(list);
     }
 }

@@ -21,3 +21,11 @@ public class StringNumericOrganizeAccountPlan : IComparer<string>
         // default return 0;
     }
 }
+
+public static class OrganizeAccountPlanByCode
+{
+    public static int Compare(string? x, string? y)
+    {
+        return new StringNumericOrganizeAccountPlan().Compare(x, y);
+    }
+}
