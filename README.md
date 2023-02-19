@@ -8,7 +8,10 @@
 Aplicação para demonstração de aplicação asp.net com .net core 6.0.  
 Na solução você encontrar divisão de camadas respeitando o DDD, para projeto simples.  
 Para subir a aplicação basta executar o comando a baixo na pasta raiz do projeto, e acessar http://localhost:8080/swagger no seu navegador.  
-``` docker-compose up ``` O docker-compose, irá subir um sql server, e uma Web API. A aplicação irá criar o banco e popular a tabela.
+
+``` docker-compose up ``` 
+
+O docker-compose, irá subir um sql server, e uma Web API. A aplicação irá criar o banco e popular a tabela.
 
 ## A API
 
