@@ -12,8 +12,9 @@ public class Program
             .Build().RunAsync();
     }
 
-    private static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
+    private static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
             .UseSerilog((context, configuration) =>
             {
@@ -30,4 +31,5 @@ public class Program
                     .Enrich.WithProperty("Environment", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!)
                     .ReadFrom.Configuration(context.Configuration);
             });
+    }
 }

@@ -24,28 +24,24 @@ public static class HealthCheckConfigurationExtension
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
     }
-    
+
     public static IServiceCollection HealthChecksConfiguration(this IServiceCollection services,
         IConfiguration configuration)
     {
-        
         var health = services.AddHealthChecks();
         health
             .AddCheck(
                 "self",
                 () => HealthCheckResult.Healthy(),
-                new[] {"self", "readiness"})
+                new[] { "self", "readiness" })
             .AddCheck(
                 "readiness",
                 () => HealthCheckResult.Healthy())
             .AddSqlServer(
                 configuration.GetConnectionString("SqlServer")!,
-                tags: new[] {"Sql Server", "readiness"});
+                tags: new[] { "Sql Server", "readiness" });
 
 
         return services;
     }
-
- 
-
 }

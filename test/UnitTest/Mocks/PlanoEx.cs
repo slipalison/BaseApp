@@ -6,7 +6,7 @@ public static class PlanoEx
 {
     public static List<string> Retuns()
     {
-        return new List<string>()
+        return new List<string>
         {
             "Pai: 1 Filho 2.5", "Pai: 5 Filho 6", "Pai: 5.999 Filho 5.999.1", "Pai: 999 Filho 1000",
             "Pai: 1.1 Filho 1.1.1", "Pai: 1.2 Filho 2.5", "Pai: 1.3 Filho 1.3.1",
@@ -23,15 +23,16 @@ public static class PlanoEx
 
     public static List<AccountPlanEntity> Return(this AccountPlanEntity accountPlanEntity)
     {
-        return new List<AccountPlanEntity>()
+        return new List<AccountPlanEntity>
         {
             new()
             {
                 Code = "1", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
-            },   
+            },
             new()
             {
-                Code = "9.9.999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+                Code = "9.9.999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita,
+                AcceptLaunches = false
             },
             new()
             {
@@ -62,7 +63,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+                Code = "999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita,
+                AcceptLaunches = false
             },
             new()
             {
@@ -93,7 +95,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "1.5", AccountName = "Multa condominial", AccountType = AccountType.Receita, AcceptLaunches = true
+                Code = "1.5", AccountName = "Multa condominial", AccountType = AccountType.Receita,
+                AcceptLaunches = true
             },
             new()
             {
@@ -216,7 +219,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "2.1.13", AccountName = "Vale transporte", AccountType = AccountType.Despesa, AcceptLaunches = true
+                Code = "2.1.13", AccountName = "Vale transporte", AccountType = AccountType.Despesa,
+                AcceptLaunches = true
             },
             new()
             {
@@ -317,7 +321,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "3", AccountName = "Despesas bancárias", AccountType = AccountType.Despesa, AcceptLaunches = false
+                Code = "3", AccountName = "Despesas bancárias", AccountType = AccountType.Despesa,
+                AcceptLaunches = false
             },
             new()
             {

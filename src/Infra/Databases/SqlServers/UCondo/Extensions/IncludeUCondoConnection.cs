@@ -9,7 +9,8 @@ namespace Infra.Databases.SqlServers.UCondo.Extensions;
 
 public static class IncludeUCondoConnection
 {
-    public static IServiceCollection AddUCondoContext(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection AddUCondoContext(this IServiceCollection serviceCollection,
+        IConfiguration configuration)
     {
         serviceCollection
             .AddDbContextPool<UCondoContext>(options =>

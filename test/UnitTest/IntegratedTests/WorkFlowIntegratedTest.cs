@@ -6,7 +6,6 @@ using Responses;
 using Responses.Http;
 using WebApi;
 
-
 namespace UnitTest.IntegratedTests;
 
 public class WorkFlowIntegratedTest : AbstractIntegratedTest
@@ -53,7 +52,7 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
             .ReceiveResult<AccountPlanCreatedResponse>();
 
         Assert.True(result.IsSuccess);
-        Assert.Contains(objetoAleatorio.NextSequencie!,result.Value.Message);
+        Assert.Contains(objetoAleatorio.NextSequencie!, result.Value.Message);
     }
 
 
@@ -78,7 +77,7 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
         Assert.True(result.IsSuccess);
         Assert.Contains($"{objetoAleatorio.Code}.30", result.Value.Message);
     }
-    
+
     [Fact]
     public async Task CreateIgnoreSequencieWithError()
     {
@@ -93,7 +92,7 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
                 AccountType = AccountType.Despesa,
                 AccountName = "Teste",
                 ParentCode = objetoAleatorio.Code,
-                SequenceCode = $"30.2"
+                SequenceCode = "30.2"
             })
             .ReceiveResult<AccountPlanCreatedResponse>();
 

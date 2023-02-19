@@ -11,4 +11,3 @@ public class AccountPlanCreatedResponse
 {
     public string Message { get; set; }
 }
-

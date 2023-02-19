@@ -6,8 +6,8 @@ namespace Infra.Middlewares;
 
 public class LoggingMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger<LoggingMiddleware> _logger;
+    private readonly RequestDelegate _next;
     private readonly RecyclableMemoryStreamManager _recyclableMemoryStreamManager;
 
     public LoggingMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
@@ -22,7 +22,9 @@ public class LoggingMiddleware
     public async Task Invoke(HttpContext context)
     {
         if (context.Request.Path.Value!.Contains("swagger"))
+        {
             await _next(context);
+        }
         else
         {
             await LogRequest(context);
@@ -52,5 +54,4 @@ public class LoggingMiddleware
         _logger.LogInformation(log);
         context.Request.Body.Position = 0;
     }
-    
 }
