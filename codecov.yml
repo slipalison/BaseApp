@@ -1,0 +1,3 @@
+ignore:
+  - "src/Infra/Migrations"  # ignore folders and all its contents
+  - "**/Migrations/*.cs"         # glob accepted
