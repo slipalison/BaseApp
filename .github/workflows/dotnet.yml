@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Run unit tests coverage
-      run: dotnet test /p:Configuration=Debug /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:ThresholdType=line /p:CoverletOutput=./lcov --collect:"XPlat Code Coverage" --exclude "*/Migrations/*" test/UnitTest/UnitTest.csproj --no-build --verbosity normal
+      run: dotnet test /p:Configuration=Debug /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:ThresholdType=line /p:CoverletOutput=./lcov --collect:"XPlat Code Coverage" --property:ExcludeByFile=\"*/Migrations/*\" test/UnitTest/UnitTest.csproj --no-build --no-restore --verbosity normal 
     
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
