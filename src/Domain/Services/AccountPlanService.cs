@@ -26,7 +26,7 @@ public class AccountPlanService : IAccountPlanService
     public async Task<List<AccountPlanResponse>> GetCategoryAndSub()
     {
         var list = await _accountPlanRepository.GetAll();
-        var listcategories = list.Where(x => x.Code.Split(".").Length <= 2).ToList();
+        var listcategories = list.Where(x => x.Code.Split(".").Length <= 2 && !x.AcceptLaunches).ToList();
 
         var codes = list.Select(x => x.Code).ToList();
 
