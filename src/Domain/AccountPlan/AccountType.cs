@@ -2,5 +2,6 @@
 
 public enum AccountType
 {
-    Receita, Despesa
+    Receita,
+    Despesa
 }

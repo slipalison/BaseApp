@@ -2,6 +2,8 @@
 using Infra.Databases.SqlServers.UCondo.Configurations;
 using Microsoft.EntityFrameworkCore;
 
+#pragma warning disable CS8618
+
 namespace Infra.Databases.SqlServers.UCondo;
 
 public class UCondoContext : DbContext
@@ -10,7 +12,7 @@ public class UCondoContext : DbContext
     {
     }
 
-    public DbSet<AccountPlanEntity>? AccountPlanEntities { get; set; }
+    public DbSet<AccountPlanEntity> AccountPlanEntities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

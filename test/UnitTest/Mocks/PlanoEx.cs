@@ -1,57 +1,12 @@
-using Domain.AccountPlan;
-using Xunit.Abstractions;
+﻿using Domain.AccountPlan;
 
-namespace UnitTest;
-
-public class UnitTest1
-{
-    private readonly ITestOutputHelper _testOutputHelper;
-    private readonly List<AccountPlanEntity> _list;
-    private readonly List<string> _listReturns;
-
-    public UnitTest1(ITestOutputHelper testOutputHelper)
-    {
-        _testOutputHelper = testOutputHelper;
-        _list = new AccountPlanEntity().Return();
-        _listReturns = PlanoEx.Retuns();
-    }
-
-    [Fact]
-    public void Test1()
-    {
-        var list = _list.Where(x => x.Code.Split(".").Length <= 2).ToList();
-        foreach (var plans in list)
-        {
-            var t = AccountPlanEntity.GetNextSequence(_list.Select(x => x.Code).ToList(), plans.Code);
-            var result = $"Pai: {plans.Code} Filho {t}";
-            _testOutputHelper.WriteLine(result);
-            Assert.Contains(result, _listReturns);
-            _listReturns.Remove(result);
-        }
-
-        Assert.False(_listReturns.Count >= 1);
-    }
-
-    public static IEnumerable<object[]> ListsCategories() => new AccountPlanEntity().Return()
-        .Where(x => x.Code.Split(".").Length <= 2).Select(x => new object[] { x.Code });
-
-    [Theory]
-    [MemberData(nameof(ListsCategories))]
-    public void VerifyCondisions(string codigo)
-    {
-        var t = AccountPlanEntity.GetNextSequence(_list.Select(x => x.Code).ToList(), codigo);
-        _testOutputHelper.WriteLine($"Pai: {codigo} Filho {t}");
-        var result = $"Pai: {codigo} Filho {t}";
-        Assert.Contains(result, _listReturns);
-        _listReturns.Remove(result);
-    }
-}
+namespace UnitTest.Mocks;
 
 public static class PlanoEx
 {
     public static List<string> Retuns()
     {
-        return new List<string>()
+        return new List<string>
         {
             "Pai: 1 Filho 2.5", "Pai: 5 Filho 6", "Pai: 5.999 Filho 5.999.1", "Pai: 999 Filho 1000",
             "Pai: 1.1 Filho 1.1.1", "Pai: 1.2 Filho 2.5", "Pai: 1.3 Filho 1.3.1",
@@ -62,17 +17,30 @@ public static class PlanoEx
             "Pai: 2 Filho 2.5", "Pai: 2.1 Filho 2.1.16", "Pai: 2.2 Filho 2.5", "Pai: 2.3 Filho 2.3.4",
             "Pai: 2.4 Filho 2.4.8", "Pai: 3 Filho 3.5", "Pai: 3.1 Filho 3.1.1", "Pai: 3.2 Filho 3.2.1",
             "Pai: 3.3 Filho 3.3.1", "Pai: 3.4 Filho 3.4.1", "Pai: 4 Filho 4.3", "Pai: 4.1 Filho 4.1.1",
-            "Pai: 4.2 Filho 4.2.1", "Pai: 999.999 Filho 1000"
+            "Pai: 4.2 Filho 4.2.1", "Pai: 999.999 Filho 1000", "Pai: 9 Filho 9.11", "Pai: 9.10 Filho 9.10.1"
         };
     }
 
     public static List<AccountPlanEntity> Return(this AccountPlanEntity accountPlanEntity)
     {
-        return new List<AccountPlanEntity>()
+        return new List<AccountPlanEntity>
         {
             new()
             {
                 Code = "1", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "9.9.999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita,
+                AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "9.10", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "9", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
             },
 
             new()
@@ -95,7 +63,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita, AcceptLaunches = false
+                Code = "999.999.999", AccountName = "Receitas", AccountType = AccountType.Receita,
+                AcceptLaunches = false
             },
             new()
             {
@@ -126,7 +95,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "1.5", AccountName = "Multa condominial", AccountType = AccountType.Receita, AcceptLaunches = true
+                Code = "1.5", AccountName = "Multa condominial", AccountType = AccountType.Receita,
+                AcceptLaunches = true
             },
             new()
             {
@@ -249,7 +219,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "2.1.13", AccountName = "Vale transporte", AccountType = AccountType.Despesa, AcceptLaunches = true
+                Code = "2.1.13", AccountName = "Vale transporte", AccountType = AccountType.Despesa,
+                AcceptLaunches = true
             },
             new()
             {
@@ -350,7 +321,8 @@ public static class PlanoEx
             },
             new()
             {
-                Code = "3", AccountName = "Despesas bancárias", AccountType = AccountType.Despesa, AcceptLaunches = false
+                Code = "3", AccountName = "Despesas bancárias", AccountType = AccountType.Despesa,
+                AcceptLaunches = false
             },
             new()
             {

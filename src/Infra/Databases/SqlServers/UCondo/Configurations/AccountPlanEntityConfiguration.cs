@@ -31,7 +31,7 @@ public class AccountPlanEntityConfiguration : IEntityTypeConfiguration<AccountPl
 
     private static List<AccountPlanEntity> Return()
     {
-        return new List<AccountPlanEntity>()
+        return new List<AccountPlanEntity>
         {
             new()
             {

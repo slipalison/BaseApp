@@ -7,37 +7,37 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Databases\SqlServers\UCondo\Repositories" />
+        <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="6.0.2"/>
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4"/>
+        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="6.0.2" />
-      <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
-      <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
-      <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <ProjectReference Include="..\Domain\Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
-        <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.14\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
-        <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.14\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-      </Reference>
+        <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+            <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.14\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+            <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.14\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.IO.RecyclableMemoryStream">
+            <HintPath>C:\Users\aliso\.nuget\packages\microsoft.io.recyclablememorystream\2.3.1\lib\net5.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>

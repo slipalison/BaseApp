@@ -1,4 +1,7 @@
 ﻿using Domain.AccountPlan;
+using Domain.Commands;
+using Domain.Contracts.Services;
+using Domain.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -7,31 +10,42 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class ChartOfAccountsController : ControllerBase
 {
-    private readonly List<AccountPlanEntity> _list;
+    private readonly IAccountPlanService _accountPlanService;
+    private readonly ILogger<ChartOfAccountsController> _logger;
 
-    public ChartOfAccountsController()
+    public ChartOfAccountsController(IAccountPlanService accountPlanService, ILogger<ChartOfAccountsController> logger)
     {
-        var t = new AccountPlanEntity();
+        _logger = logger;
+        _accountPlanService = accountPlanService;
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<ActionResult<IEnumerable<AccountPlanEntity>>> GetAll()
     {
-        return Ok(_list);
+        var list = await _accountPlanService.GetAll();
+        return Ok(list);
     }
 
 
     [HttpPost]
-    public IActionResult Post([FromBody] AccountPlanEntity accountPlanEntity)
+    public async Task<ActionResult<IEnumerable<AccountPlanCreatedResponse>>> Post(
+        [FromBody] CreateAccountPlanCommand createAccountPlanCommand)
     {
-        _list.Add(accountPlanEntity);
-        return Ok(_list);
+        var list = await _accountPlanService.Create(createAccountPlanCommand);
+        if (!list.IsSuccess)
+        {
+            _logger.LogWarning("Erro ao criar a conta {@Error}", list.Error);
+            return BadRequest(list.Error);
+        }
+
+        _logger.LogInformation("Conta criada com sucesso: {Message}", list.Value.Message);
+        return Ok(list.Value);
     }
 
     [HttpGet("Categories")]
-    public IActionResult GetHighCategory()
+    public async Task<ActionResult<IEnumerable<AccountPlanResponse>>> GetHighCategory()
     {
-
-        return Ok(_list.Where(x => x.Code.Split(".").Length <= 2).Select(x => new { Code = x.Code, AccountName = x.AccountName }));
+        var list = await _accountPlanService.GetCategoryAndSub();
+        return Ok(list);
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace Domain.AccountPlan;
+﻿using System.Text.Json.Serialization;
+
+namespace Domain.AccountPlan;
 
 public class AccountPlanEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    [JsonIgnore] public Guid Id { get; set; } = Guid.NewGuid();
+
     public string Code { get; set; } = null!;
     public string AccountName { get; set; } = null!;
     public AccountType AccountType { get; set; }

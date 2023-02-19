@@ -1,5 +1,3 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -19,4 +17,7 @@ RUN dotnet publish "WebApi.csproj" -c Release -o /app/publish /p:UseAppHost=fals
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN apt-get update && apt-get install -y openssl
+RUN mkdir -p /https
+RUN openssl req -newkey rsa:2048 -nodes -keyout /https/key.pem -x509 -days 365 -out /https/cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
 ENTRYPOINT ["dotnet", "WebApi.dll"]
