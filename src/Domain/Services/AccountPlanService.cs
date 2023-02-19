@@ -45,6 +45,10 @@ public class AccountPlanService : IAccountPlanService
         if (!createAccountPlanCommand.SequenceCode.StartsWith(createAccountPlanCommand.ParentCode))
             return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo informado não pertence a conta pai");
 
+        var parenteAllow =  await _accountPlanRepository.ParentCodeNotAcceptLaunches(createAccountPlanCommand.ParentCode);
+        if(!parenteAllow)
+            return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo pai informado aceita lançamentos");
+        
         var exists = await _accountPlanRepository.ExistsCode(createAccountPlanCommand.SequenceCode);
         var newEntity = new AccountPlanEntity
         {
@@ -53,6 +57,7 @@ public class AccountPlanService : IAccountPlanService
             AccountType = createAccountPlanCommand.AccountType,
             AcceptLaunches = createAccountPlanCommand.AcceptLaunches
         };
+        
         if (exists)
         {
             var list = await GetAll();

@@ -8,4 +8,5 @@ public interface IAccountPlanRepository
 
     Task<AccountPlanEntity> Create(AccountPlanEntity accountPlanEntity);
     Task<bool> ExistsCode(string sequenceCode);
+    Task<bool> ParentCodeNotAcceptLaunches(string parentCode);
 }

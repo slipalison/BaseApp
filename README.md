@@ -47,7 +47,7 @@ O cadastro deve respeitar essa logica:
 Foi construídas 3 rotas:
 
 - Uma rota GET para listar todos os cadastros da base.
-- Uma Rota GET que retorna todas as Categorias, subcategorias e também da uma sugestão do proximo codigo viável.
+- Uma Rota GET que retorna todas as Categorias, subcategorias que seja possivel a criação de uma conta filha, e também da uma sugestão do proximo codigo viável.
 - Uma rota para criar a conta, onde o codigo pode ser alterado independente do proximo codigo de sugestão.
 
 
