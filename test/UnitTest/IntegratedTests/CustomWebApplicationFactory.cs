@@ -27,9 +27,7 @@ public class CustomWebApplicationFactory<TProgram>
 
             if (dbConnectionDescriptor != null) services.Remove(dbConnectionDescriptor);
 
-
-            //  services.Add
-            services.AddEntityFrameworkSqlite();
+            //services.AddEntityFrameworkSqlite();
             services.AddSingleton<DbConnection>(container =>
             {
                 var connection = new SqliteConnection("Data Source=:memory:");
@@ -37,7 +35,6 @@ public class CustomWebApplicationFactory<TProgram>
 
                 return connection;
             });
-
 
             services.AddDbContextPool<UCondoContext>((container, options) =>
             {
