@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Responses" Version="1.1.2"/>
-        <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.4"/>
     </ItemGroup>
 
 </Project>
