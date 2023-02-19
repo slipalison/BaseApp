@@ -1,0 +1,13 @@
+﻿<RunSettings>
+    <DataCollectionRunSettings>
+        <DataCollectors>
+            <DataCollector friendlyName="XPlat code coverage">
+                <Configuration>
+                    <ExcludeByFile>
+                        <ModulePath>**/Migrations/*.cs</ModulePath>
+                    </ExcludeByFile>
+                </Configuration>
+            </DataCollector>
+        </DataCollectors>
+    </DataCollectionRunSettings>
+</RunSettings>
