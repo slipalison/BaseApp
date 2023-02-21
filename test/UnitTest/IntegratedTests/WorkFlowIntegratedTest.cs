@@ -99,6 +99,25 @@ public class WorkFlowIntegratedTest : AbstractIntegratedTest
         Assert.False(result.IsSuccess);
         Assert.True(result.Error.Message == "O codigo informado não pertence a conta pai");
     }
+    
+     
+    [Fact]
+    public async Task CreateIgnoreSequencieSequencieWithoutError()
+    {
+
+        var result = await CallHttp("/ChartOfAccounts").PostJsonAsync(new CreateAccountPlanCommand
+            {
+                AcceptLaunches = true,
+                AccountType = AccountType.Receita,
+                AccountName = "Teste",
+                ParentCode = "1.20",
+                SequenceCode = "1.20.10"
+            })
+            .ReceiveResult<AccountPlanCreatedResponse>();
+
+        Assert.True(result.IsSuccess);
+        Assert.True(result.Value.Message == "O codigo criado foi 1.20.11, o codígo 1.20.10 já esta em uso");
+    }
 
     private static AccountPlanResponse GetNextObj(Random rnd, Result<List<AccountPlanResponse>> categories)
     {

@@ -147,6 +147,16 @@ public class AccountPlanEntityConfiguration : IEntityTypeConfiguration<AccountPl
             },
             new()
             {
+                Code = "1.20", AccountName = "Estorno taxa de resgate", AccountType = AccountType.Receita,
+                AcceptLaunches = false
+            },
+            new()
+            {
+                Code = "1.20.10", AccountName = "Estorno taxa de resgate", AccountType = AccountType.Receita,
+                AcceptLaunches = true
+            },
+            new()
+            {
                 Code = "1.18", AccountName = "Acordo", AccountType = AccountType.Receita, AcceptLaunches = true
             },
             new()
