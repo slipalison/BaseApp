@@ -42,12 +42,20 @@ public class AccountPlanService : IAccountPlanService
 
     public async Task<Result<AccountPlanCreatedResponse>> Create(CreateAccountPlanCommand createAccountPlanCommand)
     {
+        if(createAccountPlanCommand.ParentCode.Split(".").Length > 3)
+            return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo informado esta acima da hierarquia de Categoria, subcategoria e item");
+        
         if (!createAccountPlanCommand.SequenceCode.StartsWith(createAccountPlanCommand.ParentCode))
             return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo informado não pertence a conta pai");
 
         var parenteAllow =  await _accountPlanRepository.ParentCodeNotAcceptLaunches(createAccountPlanCommand.ParentCode);
         if(!parenteAllow)
             return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo pai informado aceita lançamentos");
+        
+        
+        var parenteTypeAllow =  await _accountPlanRepository.ParentCodeNotAcceptLaunches(createAccountPlanCommand.ParentCode);
+        if(!parenteTypeAllow)
+            return Result.Fail<AccountPlanCreatedResponse>("400", "O codigo pai informado não é do tipo da conta não correspondes");
         
         var exists = await _accountPlanRepository.ExistsCode(createAccountPlanCommand.SequenceCode);
         var newEntity = new AccountPlanEntity

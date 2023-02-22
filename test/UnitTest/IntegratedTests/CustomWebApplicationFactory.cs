@@ -14,20 +14,19 @@ public class CustomWebApplicationFactory<TProgram>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
-        {
-            var dbContextDescriptor = services.SingleOrDefault(
-                d => d.ServiceType ==
-                     typeof(DbContextOptions<UCondoContext>));
+        {        var dbContextDescriptor = services.SingleOrDefault(
+                         d => d.ServiceType ==
+                              typeof(DbContextOptions<UCondoContext>));
+         
+                     if (dbContextDescriptor != null) services.Remove(dbContextDescriptor);
+         
+                     var dbConnectionDescriptor = services.SingleOrDefault(
+                         d => d.ServiceType ==
+                              typeof(DbConnection));
+         
+                     if (dbConnectionDescriptor != null) services.Remove(dbConnectionDescriptor);
+    
 
-            if (dbContextDescriptor != null) services.Remove(dbContextDescriptor);
-
-            var dbConnectionDescriptor = services.SingleOrDefault(
-                d => d.ServiceType ==
-                     typeof(DbConnection));
-
-            if (dbConnectionDescriptor != null) services.Remove(dbConnectionDescriptor);
-
-            //services.AddEntityFrameworkSqlite();
             services.AddSingleton<DbConnection>(container =>
             {
                 var connection = new SqliteConnection("Data Source=:memory:");

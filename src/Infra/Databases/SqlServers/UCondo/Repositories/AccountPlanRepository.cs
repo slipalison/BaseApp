@@ -35,4 +35,10 @@ public class AccountPlanRepository : IAccountPlanRepository
     {
         return _context.AccountPlanEntities.AnyAsync(x => x.Code == parentCode && !x.AcceptLaunches );
     }
+    
+    
+    public Task<bool> ParentCodeNotAcceptLaunches(string parentCode, AccountType accountType)
+    {
+        return _context.AccountPlanEntities.AnyAsync(x => x.Code == parentCode &&  x.AccountType ==  accountType);
+    }
 }
